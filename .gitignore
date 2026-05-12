@@ -1,0 +1,8 @@
+.DS_Store
+node_modules/
+server/uploads/*
+!server/uploads/.gitkeep
+server/*.db
+server/*.db-wal
+server/*.db-shm
+.env
