@@ -5,7 +5,7 @@
 
 -- 用户表
 CREATE TABLE IF NOT EXISTS users (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  id TEXT PRIMARY KEY,
   name VARCHAR(50) NOT NULL,
   email VARCHAR(255) UNIQUE NOT NULL,
   phone VARCHAR(20) DEFAULT '',
@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS users (
 
 -- 宠物表
 CREATE TABLE IF NOT EXISTS pets (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  id TEXT PRIMARY KEY,
   name VARCHAR(50) NOT NULL,
   breed VARCHAR(50) NOT NULL,
   age VARCHAR(20) NOT NULL,
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS pets (
   story TEXT DEFAULT '',
   image_url TEXT DEFAULT '',
   status VARCHAR(20) DEFAULT '寻找领养' CHECK (status IN ('寻找领养', '审核中', '已领养')),
-  publisher_id UUID REFERENCES users(id),
+  publisher_id TEXT REFERENCES users(id),
   is_deleted BOOLEAN DEFAULT false,
   latitude REAL DEFAULT 0,
   longitude REAL DEFAULT 0,
@@ -41,9 +41,9 @@ CREATE TABLE IF NOT EXISTS pets (
 
 -- 领养申请表
 CREATE TABLE IF NOT EXISTS applications (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id UUID REFERENCES users(id) NOT NULL,
-  pet_id UUID REFERENCES pets(id) NOT NULL,
+  id TEXT PRIMARY KEY,
+  user_id TEXT REFERENCES users(id) NOT NULL,
+  pet_id TEXT REFERENCES pets(id) NOT NULL,
   applicant_name VARCHAR(50) NOT NULL,
   applicant_phone VARCHAR(20) NOT NULL,
   housing_type VARCHAR(30) NOT NULL,
@@ -62,18 +62,18 @@ CREATE TABLE IF NOT EXISTS applications (
 
 -- 收藏表
 CREATE TABLE IF NOT EXISTS favorites (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id UUID REFERENCES users(id) NOT NULL,
-  pet_id UUID REFERENCES pets(id) NOT NULL,
+  id TEXT PRIMARY KEY,
+  user_id TEXT REFERENCES users(id) NOT NULL,
+  pet_id TEXT REFERENCES pets(id) NOT NULL,
   created_at TIMESTAMPTZ DEFAULT now(),
   UNIQUE(user_id, pet_id)
 );
 
 -- 消息表
 CREATE TABLE IF NOT EXISTS messages (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  sender_id UUID REFERENCES users(id),
-  receiver_id UUID REFERENCES users(id),
+  id TEXT PRIMARY KEY,
+  sender_id TEXT REFERENCES users(id),
+  receiver_id TEXT REFERENCES users(id),
   content TEXT NOT NULL,
   type VARCHAR(20) DEFAULT 'notification' CHECK (type IN ('notification', 'chat', 'system')),
   is_read BOOLEAN DEFAULT false,
@@ -82,9 +82,9 @@ CREATE TABLE IF NOT EXISTS messages (
 
 -- 领养成功记录表
 CREATE TABLE IF NOT EXISTS adoptions (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id UUID REFERENCES users(id) NOT NULL,
-  pet_id UUID REFERENCES pets(id) NOT NULL,
+  id TEXT PRIMARY KEY,
+  user_id TEXT REFERENCES users(id) NOT NULL,
+  pet_id TEXT REFERENCES pets(id) NOT NULL,
   adoption_number VARCHAR(30) UNIQUE NOT NULL,
   adoption_date DATE DEFAULT CURRENT_DATE,
   created_at TIMESTAMPTZ DEFAULT now()

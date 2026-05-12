@@ -1,6 +1,5 @@
 {
   "buildCommand": "npm install",
-  "outputDirectory": ".",
   "functions": {
     "api/index.js": {
       "includeFiles": "server/**"
