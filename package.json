@@ -1,12 +1,7 @@
 {
-  "name": "pawconnect-server",
+  "name": "pawconnect",
   "version": "3.0.0",
-  "description": "PawConnect 宠物领养后端服务 (PostgreSQL)",
-  "main": "server.js",
-  "scripts": {
-    "start": "node server.js",
-    "dev": "node --watch server.js"
-  },
+  "description": "PawConnect 宠物领养平台",
   "engines": {
     "node": "20.x"
   },

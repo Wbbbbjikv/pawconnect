@@ -1,0 +1,12 @@
+{
+  "buildCommand": "npm install",
+  "functions": {
+    "api/index.js": {
+      "runtime": "@vercel/node@3",
+      "includeFiles": "server/**"
+    }
+  },
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/index" }
+  ]
+}
